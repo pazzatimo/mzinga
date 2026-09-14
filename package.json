@@ -1,0 +1,11 @@
+{
+  "name": "mzinga-consultants",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel dev",
+    "dev:frontend": "pnpm --filter frontend dev",
+    "dev:studio": "pnpm --filter studio dev",
+    "build": "pnpm --filter frontend build"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
