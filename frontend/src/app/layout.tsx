@@ -3,6 +3,8 @@ import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
+import { client } from '@/sanity/lib/client'
+import { siteSettingsQuery } from '@/sanity/lib/queries'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,17 +24,27 @@ export const metadata: Metadata = {
     'Comprehensive Legal & Tax Solutions for Businesses, NGOs, Investors & Individuals Worldwide',
 }
 
-export default function RootLayout({
+export const revalidate = 300
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const settings = await client.fetch(siteSettingsQuery)
+
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="bg-brand-white text-brand-black font-sans antialiased">
-        <Navbar />
+        <Navbar
+          logo={settings?.logo}
+          companyName={settings?.companyName}
+        />
         <main>{children}</main>
-        <Footer />
+        <Footer
+          logo={settings?.logoInverse || settings?.logo}
+          companyName={settings?.companyName}
+        />
       </body>
     </html>
   )

@@ -1,8 +1,10 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import { urlFor } from '@/sanity/lib/image'
 
 const links = [
   { href: '/', label: 'Home' },
@@ -12,17 +14,41 @@ const links = [
   { href: '/contact', label: 'Contact' },
 ]
 
-export function Navbar() {
+type LogoType = {
+  asset: { _ref: string }
+  alt?: string
+}
+
+type NavbarProps = {
+  logo?: LogoType
+  companyName?: string
+}
+
+export function Navbar({ logo, companyName }: NavbarProps) {
   const [open, setOpen] = useState(false)
 
   return (
     <header className="fixed top-0 w-full z-50 bg-brand-white/95 backdrop-blur-sm border-b border-brand-black/10">
-      <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
         <Link
           href="/"
-          className="font-serif text-xl tracking-tight text-brand-black"
+          className="flex items-center"
+          aria-label={companyName || 'Mzinga Legal & Tax Consultants'}
         >
-          MZINGA <span className="text-brand-red">Consultants</span>
+          {logo?.asset ? (
+            <Image
+              src={urlFor(logo).height(80).url()}
+              alt={logo.alt || companyName || 'Mzinga Legal & Tax Consultants'}
+              width={220}
+              height={80}
+              priority
+              className="h-11 w-auto object-contain"
+            />
+          ) : (
+            <span className="font-serif text-xl tracking-tight text-brand-black">
+              MZINGA <span className="text-brand-red">Consultants</span>
+            </span>
+          )}
         </Link>
 
         <ul className="hidden md:flex items-center gap-8 text-sm tracking-wide uppercase">

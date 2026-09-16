@@ -1,13 +1,35 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import { urlFor } from '@/sanity/lib/image'
 
-export function Footer() {
+type LogoType = {
+  asset: { _ref: string }
+  alt?: string
+}
+
+type FooterProps = {
+  logo?: LogoType
+  companyName?: string
+}
+
+export function Footer({ logo, companyName }: FooterProps) {
   return (
     <footer className="bg-brand-black text-brand-white py-16 px-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
         <div className="md:col-span-2">
-          <p className="font-serif text-2xl mb-4">
-            MZINGA <span className="text-brand-red">Consultants</span>
-          </p>
+          {logo?.asset ? (
+            <Image
+              src={urlFor(logo).height(80).url()}
+              alt={logo.alt || companyName || 'Mzinga Legal & Tax Consultants'}
+              width={220}
+              height={80}
+              className="h-11 w-auto object-contain mb-4"
+            />
+          ) : (
+            <p className="font-serif text-2xl mb-4">
+              MZINGA <span className="text-brand-red">Consultants</span>
+            </p>
+          )}
           <p className="text-brand-white/60 max-w-sm leading-relaxed">
             Legal, tax, finance and management consultancy serving Tanzania and the
             world.

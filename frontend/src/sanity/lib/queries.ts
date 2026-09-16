@@ -80,6 +80,14 @@ export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0]{
     companyName,
     tagline,
+    logo{
+      asset,
+      alt
+    },
+    logoInverse{
+      asset,
+      alt
+    },
     officeAddress,
     mailingAddress,
     phone1,
