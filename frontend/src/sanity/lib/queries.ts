@@ -5,6 +5,10 @@ export const homepageQuery = groq`
     heroHeadline,
     heroSubheadline,
     heroCtaText,
+    heroImage{
+      asset,
+      alt
+    },
     trustMetrics,
     features,
     services[]->{
@@ -15,7 +19,35 @@ export const homepageQuery = groq`
       icon
     },
     clientTypes,
-    faq
+    "faq": *[_type == "faq" && showOnHomepage == true] | order(order asc){
+      _id,
+      question,
+      answer
+    }
+  }
+`
+
+export const aboutPageQuery = groq`
+  *[_type == "aboutPage"][0]{
+    intro,
+    mission,
+    vision,
+    valuesImage{
+      asset,
+      alt
+    }
+  }
+`
+
+export const servicesPageQuery = groq`
+  *[_type == "servicesPage"][0]{
+    heroEyebrow,
+    heroHeadline,
+    heroSubheadline,
+    heroImages[]{
+      asset,
+      alt
+    }
   }
 `
 

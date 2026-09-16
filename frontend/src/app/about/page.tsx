@@ -1,4 +1,13 @@
-export default function AboutPage() {
+import { client } from '@/sanity/lib/client'
+import { aboutPageQuery } from '@/sanity/lib/queries'
+import { urlFor } from '@/sanity/lib/image'
+import Image from 'next/image'
+
+export const revalidate = 60
+
+export default async function AboutPage() {
+  const data = await client.fetch(aboutPageQuery)
+
   return (
     <div className="pt-32 pb-24 px-6">
       <div className="max-w-4xl mx-auto">
@@ -11,9 +20,8 @@ export default function AboutPage() {
 
         <div className="max-w-none">
           <p className="text-xl leading-relaxed text-brand-black/80 mb-12">
-            Mzinga Legal & Tax Consultants is a professional legal, tax, finance, and
-            management consultancy. We combine deep local credentials with global
-            thinking to serve clients from Tanzania and around the world.
+            {data?.intro ||
+              'Mzinga Legal & Tax Consultants is a professional legal, tax, finance, and management consultancy. We combine deep local credentials with global thinking to serve clients from Tanzania and around the world.'}
           </p>
 
           <div className="grid md:grid-cols-2 gap-12 my-20">
@@ -22,9 +30,8 @@ export default function AboutPage() {
                 Our Mission
               </h2>
               <p className="text-brand-black/70 leading-relaxed">
-                To empower clients through sound legal advice and efficient tax
-                strategies, ensuring compliance, minimizing risk, and enabling growth
-                both locally and globally.
+                {data?.mission ||
+                  'To empower clients through sound legal advice and efficient tax strategies, ensuring compliance, minimizing risk, and enabling growth both locally and globally.'}
               </p>
             </div>
             <div className="border-l-2 border-brand-red pl-8">
@@ -32,49 +39,39 @@ export default function AboutPage() {
                 Our Vision
               </h2>
               <p className="text-brand-black/70 leading-relaxed">
-                To be the preferred partner for legal and tax consultancy in East
-                Africa and beyond, known for ethical standards, deep technical
-                competence, and client success.
+                {data?.vision ||
+                  'To be the preferred partner for legal and tax consultancy in East Africa and beyond, known for ethical standards, deep technical competence, and client success.'}
               </p>
             </div>
           </div>
 
-          <h2 className="font-serif text-3xl mb-8 text-brand-black">Our Values</h2>
-          <div className="space-y-6">
-            {[
-              {
-                title: 'Professionalism',
-                desc: 'We adhere to the highest standards of practice.',
-              },
-              {
-                title: 'Integrity',
-                desc: 'Honest, transparent, principled advice.',
-              },
-              {
-                title: 'Excellence',
-                desc: 'Continuous learning, staying up-to-date with law and tax regulations.',
-              },
-              {
-                title: 'Client-Focus',
-                desc: "Listening, understanding, and adapting to each client's needs.",
-              },
-              {
-                title: 'Confidentiality',
-                desc: 'Strict protection of client data and information.',
-              },
-            ].map((v, i) => (
-              <div key={i} className="flex gap-6">
-                <span className="text-brand-red font-serif text-2xl shrink-0">
-                  0{i + 1}
-                </span>
-                <div>
-                  <h3 className="font-serif text-xl mb-1 text-brand-black">
-                    {v.title}
-                  </h3>
-                  <p className="text-brand-black/60">{v.desc}</p>
-                </div>
+          {/* Our Values — single designed image */}
+          <div className="mt-20">
+            <h2 className="font-serif text-3xl mb-8 text-brand-black">
+              Our Values
+            </h2>
+
+            {data?.valuesImage?.asset ? (
+              <div className="relative w-full overflow-hidden bg-brand-black/5">
+                <Image
+                  src={urlFor(data.valuesImage).width(1600).url()}
+                  alt={
+                    data.valuesImage.alt ||
+                    'Mzinga values: Professionalism, Integrity, Excellence, Client-Focus, Confidentiality.'
+                  }
+                  width={1600}
+                  height={1000}
+                  className="w-full h-auto"
+                  sizes="(max-width: 1024px) 100vw, 900px"
+                />
               </div>
-            ))}
+            ) : (
+              <div className="aspect-[16/10] bg-brand-black/5 border border-brand-black/10 flex items-center justify-center">
+                <p className="text-brand-black/40 text-sm">
+                  Upload a values image in the Studio
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import { client } from '@/sanity/lib/client'
 import { homepageQuery } from '@/sanity/lib/queries'
+import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
+import Image from 'next/image'
 import * as Icons from 'lucide-react'
 
 export const revalidate = 60
@@ -20,31 +22,68 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Hero */}
-      <section className="min-h-screen flex items-center pt-24 pb-16 px-6">
+      {/* Hero — split layout */}
+      <section className="min-h-screen flex items-center pt-28 pb-16 px-6">
         <div className="max-w-7xl mx-auto w-full">
-          <p className="text-brand-red uppercase tracking-[0.3em] text-xs mb-6">
-            Legal · Tax · Advisory
-          </p>
-          <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.05] max-w-5xl mb-8 text-brand-black">
-            {data.heroHeadline}
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl text-brand-black/70 leading-relaxed mb-10">
-            {data.heroSubheadline}
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link
-              href="/contact"
-              className="bg-brand-red text-brand-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-brand-black transition-colors"
-            >
-              {data.heroCtaText || 'Book a Consultation'}
-            </Link>
-            <Link
-              href="/services"
-              className="border border-brand-black text-brand-black px-8 py-4 text-sm uppercase tracking-wider hover:bg-brand-black hover:text-brand-white transition-colors"
-            >
-              Explore Services
-            </Link>
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left — Text */}
+            <div className="lg:col-span-7">
+              <p className="text-brand-red uppercase tracking-[0.3em] text-xs mb-6">
+                Legal · Tax · Advisory
+              </p>
+              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-8 text-brand-black">
+                {data.heroHeadline}
+              </h1>
+              <p className="text-lg md:text-xl max-w-xl text-brand-black/70 leading-relaxed mb-10">
+                {data.heroSubheadline}
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link
+                  href="/contact"
+                  className="bg-brand-red text-brand-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-brand-black transition-colors"
+                >
+                  {data.heroCtaText || 'Book a Consultation'}
+                </Link>
+                <Link
+                  href="/services"
+                  className="border border-brand-black text-brand-black px-8 py-4 text-sm uppercase tracking-wider hover:bg-brand-black hover:text-brand-white transition-colors"
+                >
+                  Explore Services
+                </Link>
+              </div>
+            </div>
+
+            {/* Right — Image */}
+            <div className="lg:col-span-5 relative">
+              {data.heroImage?.asset ? (
+                <div className="relative">
+                  <div className="absolute -top-4 -right-4 w-32 h-32 bg-brand-red -z-10 hidden lg:block" />
+                  <div className="relative aspect-[4/5] overflow-hidden bg-brand-black/5">
+                    <Image
+                      src={urlFor(data.heroImage).width(800).height(1000).url()}
+                      alt={data.heroImage.alt || data.heroHeadline}
+                      fill
+                      priority
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                    />
+                  </div>
+                  <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-brand-black -z-10 hidden lg:block" />
+                </div>
+              ) : (
+                <div className="aspect-[4/5] bg-brand-black/5 border border-brand-black/10 flex items-center justify-center">
+                  <div className="text-center px-6">
+                    <Icons.ImageIcon
+                      className="text-brand-black/20 mx-auto mb-4"
+                      size={48}
+                    />
+                    <p className="text-brand-black/40 text-sm">
+                      Upload a hero image in the Studio
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
@@ -116,7 +155,8 @@ export default async function HomePage() {
                 shortDescription: string
                 icon?: string
               }) => {
-                const IconComponent = (Icons as any)[s.icon || 'Scale'] || Icons.Scale
+                const IconComponent =
+                  (Icons as any)[s.icon || 'Scale'] || Icons.Scale
                 return (
                   <Link
                     key={s._id}

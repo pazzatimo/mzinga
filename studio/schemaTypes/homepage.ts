@@ -88,19 +88,5 @@ export default defineType({
       type: 'array',
       of: [{ type: 'string' }],
     }),
-    defineField({
-      name: 'faq',
-      title: 'FAQ Items',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            { name: 'question', type: 'string', title: 'Question' },
-            { name: 'answer', type: 'text', rows: 4, title: 'Answer' },
-          ],
-        },
-      ],
-    }),
   ],
 })

@@ -16,7 +16,6 @@ export default defineConfig({
         S.list()
           .title('Content')
           .items([
-            // Singleton: Homepage
             S.listItem()
               .title('Homepage')
               .id('homepage')
@@ -26,8 +25,24 @@ export default defineConfig({
                   .documentId('homepage')
                   .title('Homepage')
               ),
-
-            // Singleton: Site Settings
+            S.listItem()
+              .title('Services Page')
+              .id('servicesPage')
+              .child(
+                S.document()
+                  .schemaType('servicesPage')
+                  .documentId('servicesPage')
+                  .title('Services Page')
+              ),
+            S.listItem()
+              .title('About Page')
+              .id('aboutPage')
+              .child(
+                S.document()
+                  .schemaType('aboutPage')
+                  .documentId('aboutPage')
+                  .title('About Page')
+              ),
             S.listItem()
               .title('Site Settings')
               .id('siteSettings')
@@ -37,15 +52,13 @@ export default defineConfig({
                   .documentId('siteSettings')
                   .title('Site Settings')
               ),
-
             S.divider(),
-
-            // Lists: Services & Team
             S.documentTypeListItem('service').title('Services'),
             S.documentTypeListItem('teamMember').title('Team Members'),
+            S.documentTypeListItem('faq').title('FAQs'),
           ]),
     }),
-    visionTool(), // GROQ query playground — useful during development
+    visionTool(),
   ],
 
   schema: {
