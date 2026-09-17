@@ -24,7 +24,6 @@ export default async function HomePage() {
     <>
       {/* Hero — full-bleed background image */}
       <section className="relative w-full min-h-[90vh] lg:min-h-screen flex items-end overflow-hidden">
-        {/* Background image */}
         {data.heroImage?.asset ? (
           <Image
             src={urlFor(data.heroImage).width(2400).url()}
@@ -38,10 +37,8 @@ export default async function HomePage() {
           <div className="absolute inset-0 bg-brand-black" />
         )}
 
-        {/* Gradient overlay for text readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/70 to-brand-black/40" />
 
-        {/* Content */}
         <div className="relative w-full max-w-7xl mx-auto px-6 pb-20 lg:pb-28 pt-40">
           <div className="max-w-3xl">
             <p className="text-brand-red uppercase tracking-[0.35em] text-xs mb-6">
@@ -197,22 +194,47 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* CTA — solid red block */}
-      <section className="py-24 px-6 bg-brand-red">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-serif text-4xl md:text-5xl mb-6 text-brand-white">
-            Ready to protect your interests?
-          </h2>
-          <p className="text-brand-white/80 mb-10 text-lg">
-            Reach out today for a consultation. We assess your situation and propose
-            a tailored engagement plan.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block bg-brand-white text-brand-black px-10 py-4 text-sm uppercase tracking-wider hover:bg-brand-black hover:text-brand-white transition-colors"
-          >
-            Contact Us
-          </Link>
+      {/* CTA — text left, image right */}
+      <section className="bg-brand-red overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-12 items-stretch">
+            {/* Left — Text */}
+            <div className="lg:col-span-7 px-6 lg:px-12 py-20 lg:py-28 flex flex-col justify-center">
+              <p className="text-brand-white/70 uppercase tracking-[0.3em] text-xs mb-6">
+                Get Started
+              </p>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-6 text-brand-white leading-[1.1]">
+                Ready to protect your interests?
+              </h2>
+              <p className="text-brand-white/80 mb-10 text-lg max-w-lg leading-relaxed">
+                Reach out today for a consultation. We assess your situation and
+                propose a tailored engagement plan.
+              </p>
+              <div>
+                <Link
+                  href="/contact"
+                  className="inline-block bg-brand-white text-brand-black px-10 py-4 text-sm uppercase tracking-wider hover:bg-brand-black hover:text-brand-white transition-colors"
+                >
+                  Contact Us
+                </Link>
+              </div>
+            </div>
+
+            {/* Right — Image */}
+            <div className="lg:col-span-5 relative min-h-[320px] lg:min-h-[520px]">
+              {data.ctaImage?.asset ? (
+                <Image
+                  src={urlFor(data.ctaImage).width(1200).url()}
+                  alt={data.ctaImage.alt || 'Mzinga Legal & Tax Consultants'}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-brand-black/20" />
+              )}
+            </div>
+          </div>
         </div>
       </section>
     </>

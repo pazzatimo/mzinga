@@ -19,6 +19,10 @@ export const homepageQuery = groq`
       icon
     },
     clientTypes,
+    ctaImage{
+      asset,
+      alt
+    },
     "faq": *[_type == "faq" && showOnHomepage == true] | order(order asc){
       _id,
       question,
