@@ -41,10 +41,7 @@ export default async function RootLayout({
           companyName={settings?.companyName}
         />
         <main>{children}</main>
-        <Footer
-          logo={settings?.logoInverse || settings?.logo}
-          companyName={settings?.companyName}
-        />
+        <Footer settings={settings} />
       </body>
     </html>
   )

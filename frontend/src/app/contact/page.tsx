@@ -1,7 +1,26 @@
 import { client } from '@/sanity/lib/client'
 import { siteSettingsQuery } from '@/sanity/lib/queries'
+import {
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Youtube,
+  Globe,
+  Mail,
+} from 'lucide-react'
 
 export const revalidate = 300
+
+function getSocialIcon(platform: string) {
+  const key = platform.toLowerCase().trim()
+  if (key.includes('face')) return Facebook
+  if (key.includes('twit') || key === 'x') return Twitter
+  if (key.includes('link')) return Linkedin
+  if (key.includes('insta')) return Instagram
+  if (key.includes('yout')) return Youtube
+  return Globe
+}
 
 export default async function ContactPage() {
   const settings = await client.fetch(siteSettingsQuery)
@@ -52,6 +71,21 @@ export default async function ContactPage() {
               <p className="text-lg text-brand-black">{settings?.phone2}</p>
             </div>
 
+            {settings?.email && (
+              <div>
+                <h2 className="text-xs uppercase tracking-[0.3em] text-brand-black/50 mb-4">
+                  Email
+                </h2>
+                <a
+                  href={`mailto:${settings.email}`}
+                  className="text-lg text-brand-black hover:text-brand-red transition-colors inline-flex items-center gap-3"
+                >
+                  <Mail size={20} className="text-brand-red" />
+                  {settings.email}
+                </a>
+              </div>
+            )}
+
             <div>
               <h2 className="text-xs uppercase tracking-[0.3em] text-brand-black/50 mb-4">
                 Working Hours
@@ -63,6 +97,33 @@ export default async function ContactPage() {
                 {settings?.workingHours?.weekends}
               </p>
             </div>
+
+            {settings?.socialLinks && settings.socialLinks.length > 0 && (
+              <div>
+                <h2 className="text-xs uppercase tracking-[0.3em] text-brand-black/50 mb-4">
+                  Follow Us
+                </h2>
+                <div className="flex gap-3">
+                  {settings.socialLinks.map(
+                    (s: { platform: string; url: string }, i: number) => {
+                      const Icon = getSocialIcon(s.platform)
+                      return (
+                        <a
+                          key={i}
+                          href={s.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={s.platform}
+                          className="w-11 h-11 border border-brand-black/15 flex items-center justify-center text-brand-black/70 hover:bg-brand-red hover:border-brand-red hover:text-brand-white transition-colors"
+                        >
+                          <Icon size={18} />
+                        </a>
+                      )
+                    }
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Contact Form */}
@@ -79,7 +140,6 @@ export default async function ContactPage() {
                   placeholder="Your name"
                 />
               </div>
-
               <div>
                 <label className="block text-xs uppercase tracking-wider mb-2 text-brand-white/60">
                   Email
@@ -90,7 +150,6 @@ export default async function ContactPage() {
                   placeholder="you@company.com"
                 />
               </div>
-
               <div>
                 <label className="block text-xs uppercase tracking-wider mb-2 text-brand-white/60">
                   Phone
@@ -101,7 +160,6 @@ export default async function ContactPage() {
                   placeholder="+255…"
                 />
               </div>
-
               <div>
                 <label className="block text-xs uppercase tracking-wider mb-2 text-brand-white/60">
                   Message
@@ -112,7 +170,6 @@ export default async function ContactPage() {
                   placeholder="Tell us about your matter…"
                 />
               </div>
-
               <button
                 type="submit"
                 className="w-full bg-brand-red text-brand-white py-4 text-sm uppercase tracking-wider hover:bg-brand-white hover:text-brand-black transition-colors"
