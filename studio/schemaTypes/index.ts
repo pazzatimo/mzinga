@@ -5,6 +5,7 @@ import siteSettings from './siteSettings'
 import servicesPage from './servicesPage'
 import aboutPage from './aboutPage'
 import faq from './faq'
+import client from './client'
 
 export const schemaTypes = [
   homepage,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   servicesPage,
   aboutPage,
   faq,
+  client,
 ]

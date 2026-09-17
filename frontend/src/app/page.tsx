@@ -1,5 +1,5 @@
 import { client } from '@/sanity/lib/client'
-import { homepageQuery } from '@/sanity/lib/queries'
+import { homepageQuery, clientsQuery } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -8,7 +8,10 @@ import * as Icons from 'lucide-react'
 export const revalidate = 60
 
 export default async function HomePage() {
-  const data = await client.fetch(homepageQuery)
+  const [data, clients] = await Promise.all([
+    client.fetch(homepageQuery),
+    client.fetch(clientsQuery),
+  ])
 
   if (!data) {
     return (
@@ -194,11 +197,66 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* Clients — logo grid */}
+      {clients?.length > 0 && (
+        <section className="py-20 px-6 border-t border-brand-black/10">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-14">
+              <p className="text-brand-red uppercase tracking-[0.3em] text-xs mb-4">
+                Our Clients
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl text-brand-black max-w-2xl mx-auto">
+                Trusted by organisations across Tanzania and beyond.
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 items-center">
+              {clients.map(
+                (c: {
+                  _id: string
+                  name: string
+                  logo: { asset: { _ref: string } }
+                  url?: string
+                }) => {
+                  const logoImage = (
+                    <div className="relative h-16 md:h-20 w-full flex items-center justify-center">
+                      <Image
+                        src={urlFor(c.logo).height(160).url()}
+                        alt={c.name}
+                        width={200}
+                        height={80}
+                        className="max-h-full w-auto object-contain"
+                      />
+                    </div>
+                  )
+
+                  return c.url ? (
+                    <a
+                      key={c._id}
+                      href={c.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block opacity-70 hover:opacity-100 transition-opacity duration-300"
+                      aria-label={c.name}
+                    >
+                      {logoImage}
+                    </a>
+                  ) : (
+                    <div key={c._id} className="opacity-70 hover:opacity-100 transition-opacity duration-300">
+                      {logoImage}
+                    </div>
+                  )
+                }
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* CTA — text left, image right */}
       <section className="bg-brand-red overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 items-stretch">
-            {/* Left — Text */}
             <div className="lg:col-span-7 px-6 lg:px-12 py-20 lg:py-28 flex flex-col justify-center">
               <p className="text-brand-white/70 uppercase tracking-[0.3em] text-xs mb-6">
                 Get Started
@@ -220,7 +278,6 @@ export default async function HomePage() {
               </div>
             </div>
 
-            {/* Right — Image */}
             <div className="lg:col-span-5 relative min-h-[320px] lg:min-h-[520px]">
               {data.ctaImage?.asset ? (
                 <Image

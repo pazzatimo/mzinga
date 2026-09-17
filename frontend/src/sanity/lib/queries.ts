@@ -31,6 +31,15 @@ export const homepageQuery = groq`
   }
 `
 
+export const clientsQuery = groq`
+  *[_type == "client"] | order(order asc){
+    _id,
+    name,
+    logo,
+    url
+  }
+`
+
 export const aboutPageQuery = groq`
   *[_type == "aboutPage"][0]{
     intro,

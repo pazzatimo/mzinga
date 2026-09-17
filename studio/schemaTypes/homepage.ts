@@ -28,7 +28,7 @@ export default defineType({
       title: 'Hero Image',
       type: 'image',
       description:
-        'Featured image displayed on the right side of the homepage hero. Recommended: portrait or square orientation, at least 1200×1500px.',
+        'Full-bleed background image for the homepage hero. Recommended: landscape 16:9 or wider, at least 2400px wide. Aim for a subject in the top-right or center since text overlays the bottom-left.',
       options: { hotspot: true },
       fields: [
         {
@@ -87,6 +87,22 @@ export default defineType({
       title: 'Whom We Serve',
       type: 'array',
       of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'ctaImage',
+      title: 'CTA Section Image',
+      type: 'image',
+      description:
+        'Image displayed on the right side of the red CTA block near the bottom of the homepage. Recommended: portrait or square, at least 1200px on the longest side.',
+      options: { hotspot: true },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative Text',
+          description: 'Describe the image for accessibility and SEO.',
+        },
+      ],
     }),
   ],
 })

@@ -55,6 +55,7 @@ export default defineConfig({
             S.divider(),
             S.documentTypeListItem('service').title('Services'),
             S.documentTypeListItem('teamMember').title('Team Members'),
+            S.documentTypeListItem('client').title('Clients'),
             S.documentTypeListItem('faq').title('FAQs'),
           ]),
     }),
