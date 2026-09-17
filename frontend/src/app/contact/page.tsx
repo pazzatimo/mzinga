@@ -1,26 +1,8 @@
 import { client } from '@/sanity/lib/client'
 import { siteSettingsQuery } from '@/sanity/lib/queries'
-import {
-  Facebook,
-  Twitter,
-  Linkedin,
-  Instagram,
-  Youtube,
-  Globe,
-  Mail,
-} from 'lucide-react'
+import { getSocialIcon, MailIcon } from '@/components/SocialIcons'
 
 export const revalidate = 300
-
-function getSocialIcon(platform: string) {
-  const key = platform.toLowerCase().trim()
-  if (key.includes('face')) return Facebook
-  if (key.includes('twit') || key === 'x') return Twitter
-  if (key.includes('link')) return Linkedin
-  if (key.includes('insta')) return Instagram
-  if (key.includes('yout')) return Youtube
-  return Globe
-}
 
 export default async function ContactPage() {
   const settings = await client.fetch(siteSettingsQuery)
@@ -36,7 +18,6 @@ export default async function ContactPage() {
         </h1>
 
         <div className="grid lg:grid-cols-2 gap-16">
-          {/* Contact Details */}
           <div className="space-y-10">
             <div>
               <h2 className="text-xs uppercase tracking-[0.3em] text-brand-black/50 mb-4">
@@ -80,7 +61,7 @@ export default async function ContactPage() {
                   href={`mailto:${settings.email}`}
                   className="text-lg text-brand-black hover:text-brand-red transition-colors inline-flex items-center gap-3"
                 >
-                  <Mail size={20} className="text-brand-red" />
+                  <MailIcon size={20} />
                   {settings.email}
                 </a>
               </div>
@@ -126,7 +107,6 @@ export default async function ContactPage() {
             )}
           </div>
 
-          {/* Contact Form */}
           <div className="bg-brand-black text-brand-white p-10">
             <h2 className="font-serif text-2xl mb-8">Send us a message</h2>
             <form className="space-y-6">

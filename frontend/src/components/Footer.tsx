@@ -1,15 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
-import {
-  Facebook,
-  Twitter,
-  Linkedin,
-  Instagram,
-  Youtube,
-  Globe,
-  Mail,
-} from 'lucide-react'
+import { getSocialIcon, MailIcon } from './SocialIcons'
 
 type LogoType = {
   asset: { _ref: string }
@@ -41,16 +33,6 @@ type FooterProps = {
   }
 }
 
-function getSocialIcon(platform: string) {
-  const key = platform.toLowerCase().trim()
-  if (key.includes('face')) return Facebook
-  if (key.includes('twit') || key === 'x') return Twitter
-  if (key.includes('link')) return Linkedin
-  if (key.includes('insta')) return Instagram
-  if (key.includes('yout')) return Youtube
-  return Globe
-}
-
 export function Footer({ settings }: FooterProps) {
   const logo = settings?.logoInverse || settings?.logo
   const { officeAddress, mailingAddress, phone1, phone2, email, socialLinks } =
@@ -78,9 +60,8 @@ export function Footer({ settings }: FooterProps) {
             world.
           </p>
 
-          {/* Social links */}
           {socialLinks && socialLinks.length > 0 && (
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               {socialLinks.map((s, i) => {
                 const Icon = getSocialIcon(s.platform)
                 return (
@@ -151,14 +132,20 @@ export function Footer({ settings }: FooterProps) {
             {mailingAddress && <li>{mailingAddress}</li>}
             {phone1 && (
               <li>
-                <a href={`tel:${phone1}`} className="hover:text-brand-red transition-colors">
+                <a
+                  href={`tel:${phone1}`}
+                  className="hover:text-brand-red transition-colors"
+                >
                   {phone1}
                 </a>
               </li>
             )}
             {phone2 && (
               <li>
-                <a href={`tel:${phone2}`} className="hover:text-brand-red transition-colors">
+                <a
+                  href={`tel:${phone2}`}
+                  className="hover:text-brand-red transition-colors"
+                >
                   {phone2}
                 </a>
               </li>
@@ -169,7 +156,7 @@ export function Footer({ settings }: FooterProps) {
                   href={`mailto:${email}`}
                   className="hover:text-brand-red transition-colors inline-flex items-center gap-2"
                 >
-                  <Mail size={14} />
+                  <MailIcon size={14} />
                   {email}
                 </a>
               </li>
@@ -179,7 +166,9 @@ export function Footer({ settings }: FooterProps) {
       </div>
 
       <div className="max-w-7xl mx-auto border-t border-brand-white/10 mt-12 pt-8 text-xs text-brand-white/40">
-        © {new Date().getFullYear()} {settings?.companyName || 'Mzinga Legal & Tax Consultants'}. All rights reserved.
+        © {new Date().getFullYear()}{' '}
+        {settings?.companyName || 'Mzinga Legal & Tax Consultants'}. All rights
+        reserved.
       </div>
     </footer>
   )
