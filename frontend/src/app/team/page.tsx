@@ -54,7 +54,7 @@ export default async function TeamPage() {
                         src={urlFor(member.photo).width(600).height(750).url()}
                         alt={member.name}
                         fill
-                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                     ) : (
