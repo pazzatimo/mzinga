@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "home": "Nyumbani",
+    "about": "Kutuhusu",
+    "services": "Huduma Zetu",
+    "team": "Timu Yetu",
+    "contact": "Wasiliana Nasi",
+    "bookConsultation": "Weka Miadi"
+  },
+  "hero": {
+    "eyebrow": "Sheria · Kodi · Ushauri",
+    "ctaDefault": "Weka Miadi",
+    "exploreServices": "Chunguza Huduma"
+  },
+  "sections": {
+    "whyChooseUs": "Kwa Nini Utuchague",
+    "whyChooseUsHeadline": "Imejengwa kwa utaalamu. Inaongozwa kwa uadilifu.",
+    "ourServices": "Huduma Zetu Kuu",
+    "ourServicesHeadline": "Suluhisho kamili katika nyanja za sheria na kodi.",
+    "faq": "Maswali Yanayoulizwa Mara kwa Mara",
+    "faqHeadline": "Maswali ya kawaida",
+    "clients": "Wateja Wetu",
+    "clientsHeadline": "Inaaminika na taasisi kote Tanzania na zaidi.",
+    "getStarted": "Anza Sasa",
+    "ctaHeadline": "Uko tayari kulinda maslahi yako?",
+    "ctaBody": "Wasiliana nasi leo kwa ushauri. Tunatathmini hali yako na kupendekeza mpango maalum wa kufanya kazi.",
+    "contactUs": "Wasiliana Nasi"
+  },
+  "footer": {
+    "tagline": "Ushauri wa sheria, kodi, fedha na usimamizi unaohudumia Tanzania na dunia.",
+    "navigate": "Urambazaji",
+    "contact": "Mawasiliano",
+    "rights": "Haki zote zimehifadhiwa."
+  },
+  "contact": {
+    "eyebrow": "Wasiliana Nasi",
+    "headline": "Anza mazungumzo.",
+    "officeAddress": "Anwani ya Ofisi",
+    "mailingAddress": "Anwani ya Posta",
+    "phone": "Simu",
+    "email": "Barua Pepe",
+    "workingHours": "Saa za Kazi",
+    "followUs": "Tufuate",
+    "sendMessage": "Tutumie ujumbe",
+    "fullName": "Jina Kamili",
+    "yourName": "Jina lako",
+    "emailLabel": "Barua Pepe",
+    "phoneLabel": "Simu",
+    "messageLabel": "Ujumbe",
+    "messagePlaceholder": "Tuambie kuhusu jambo lako…",
+    "submit": "Tuma Ujumbe",
+    "sending": "Inatuma...",
+    "thankYou": "Asante!",
+    "thankYouBody": "Ujumbe wako umetumwa. Tutawasiliana nawe hivi karibuni."
+  },
+  "team": {
+    "eyebrow": "Timu Yetu",
+    "headline": "Wataalamu wenye uzoefu. Waliojitolea kwa mafanikio yako.",
+    "intro": "Washauri wetu wanaunganisha utaalamu wa kina katika mifumo ya sheria na kodi ya Tanzania na kimataifa, pamoja na kujitolea kwa pamoja kwa uadilifu na huduma kwa mteja.",
+    "empty": "Wasifu wa timu unakuja hivi karibuni.",
+    "emptyHint": "Ongeza wanachama wa timu katika Studio ili kuwaonyesha hapa.",
+    "ctaHeadline": "Unataka kufanya kazi nasi?",
+    "ctaBody": "Iwe unahitaji ushauri au unavutiwa kujiunga na timu yetu, tungependa kusikia kutoka kwako.",
+    "ctaButton": "Wasiliana Nasi"
+  },
+  "about": {
+    "eyebrow": "Kutuhusu",
+    "headline": "Ushauri wa sheria na kodi, uliobuniwa upya kwa Tanzania ya kimataifa.",
+    "mission": "Dhamira Yetu",
+    "vision": "Maono Yetu",
+    "values": "Maadili Yetu"
+  },
+  "services": {
+    "eyebrow": "Huduma Zetu",
+    "headline": "Utaalamu katika kila nyanja ya sheria na kodi.",
+    "subheadline": "Kutoka uundaji wa kampuni hadi utatuzi wa migogoro ya kodi, timu yetu inatoa ushauri wa vitendo unaozingatia mamlaka na unaofaa mahitaji yako.",
+    "allServices": "Huduma Zote",
+    "whatWeDeliver": "Tunachotoa",
+    "discussService": "Jadili huduma hii",
+    "empty": "Huduma zinakuja hivi karibuni."
+  },
+  "language": {
+    "label": "Lugha",
+    "en": "English",
+    "sw": "Kiswahili"
+  },
+  "common": {
+    "loading": "Maudhui yanapakia…",
+    "notFound": "Ukurasa haupatikani"
+  }
+}

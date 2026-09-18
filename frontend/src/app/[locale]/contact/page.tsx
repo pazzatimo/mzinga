@@ -1,27 +1,34 @@
 import { client } from '@/sanity/lib/client'
 import { siteSettingsQuery } from '@/sanity/lib/queries'
 import { getSocialIcon, MailIcon } from '@/components/SocialIcons'
+import { getTranslations } from 'next-intl/server'
 
 export const revalidate = 300
 
-export default async function ContactPage() {
-  const settings = await client.fetch(siteSettingsQuery)
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const t = await getTranslations('contact')
+  const settings = await client.fetch(siteSettingsQuery, { locale })
 
   return (
     <div className="pt-32 pb-24 px-6">
       <div className="max-w-7xl mx-auto">
         <p className="text-brand-red uppercase tracking-[0.3em] text-xs mb-4">
-          Contact Us
+          {t('eyebrow')}
         </p>
         <h1 className="font-serif text-5xl md:text-6xl mb-16 max-w-3xl text-brand-black">
-          Start a conversation.
+          {t('headline')}
         </h1>
 
         <div className="grid lg:grid-cols-2 gap-16">
           <div className="space-y-10">
             <div>
               <h2 className="text-xs uppercase tracking-[0.3em] text-brand-black/50 mb-4">
-                Office Address
+                {t('officeAddress')}
               </h2>
               <p className="text-lg leading-relaxed text-brand-black">
                 {settings?.officeAddress?.line1}
@@ -37,7 +44,7 @@ export default async function ContactPage() {
 
             <div>
               <h2 className="text-xs uppercase tracking-[0.3em] text-brand-black/50 mb-4">
-                Mailing Address
+                {t('mailingAddress')}
               </h2>
               <p className="text-lg text-brand-black">
                 {settings?.mailingAddress}
@@ -46,7 +53,7 @@ export default async function ContactPage() {
 
             <div>
               <h2 className="text-xs uppercase tracking-[0.3em] text-brand-black/50 mb-4">
-                Phone
+                {t('phone')}
               </h2>
               <p className="text-lg text-brand-black">{settings?.phone1}</p>
               <p className="text-lg text-brand-black">{settings?.phone2}</p>
@@ -55,7 +62,7 @@ export default async function ContactPage() {
             {settings?.email && (
               <div>
                 <h2 className="text-xs uppercase tracking-[0.3em] text-brand-black/50 mb-4">
-                  Email
+                  {t('email')}
                 </h2>
                 <a
                   href={`mailto:${settings.email}`}
@@ -69,7 +76,7 @@ export default async function ContactPage() {
 
             <div>
               <h2 className="text-xs uppercase tracking-[0.3em] text-brand-black/50 mb-4">
-                Working Hours
+                {t('workingHours')}
               </h2>
               <p className="text-lg text-brand-black">
                 {settings?.workingHours?.weekdays}
@@ -82,7 +89,7 @@ export default async function ContactPage() {
             {settings?.socialLinks && settings.socialLinks.length > 0 && (
               <div>
                 <h2 className="text-xs uppercase tracking-[0.3em] text-brand-black/50 mb-4">
-                  Follow Us
+                  {t('followUs')}
                 </h2>
                 <div className="flex gap-3">
                   {settings.socialLinks.map(
@@ -108,21 +115,21 @@ export default async function ContactPage() {
           </div>
 
           <div className="bg-brand-black text-brand-white p-10">
-            <h2 className="font-serif text-2xl mb-8">Send us a message</h2>
+            <h2 className="font-serif text-2xl mb-8">{t('sendMessage')}</h2>
             <form className="space-y-6">
               <div>
                 <label className="block text-xs uppercase tracking-wider mb-2 text-brand-white/60">
-                  Full Name
+                  {t('fullName')}
                 </label>
                 <input
                   type="text"
                   className="w-full bg-transparent border-b border-brand-white/30 py-3 focus:border-brand-red outline-none transition-colors text-brand-white placeholder:text-brand-white/30"
-                  placeholder="Your name"
+                  placeholder={t('yourName')}
                 />
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-wider mb-2 text-brand-white/60">
-                  Email
+                  {t('emailLabel')}
                 </label>
                 <input
                   type="email"
@@ -132,7 +139,7 @@ export default async function ContactPage() {
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-wider mb-2 text-brand-white/60">
-                  Phone
+                  {t('phoneLabel')}
                 </label>
                 <input
                   type="tel"
@@ -142,19 +149,19 @@ export default async function ContactPage() {
               </div>
               <div>
                 <label className="block text-xs uppercase tracking-wider mb-2 text-brand-white/60">
-                  Message
+                  {t('messageLabel')}
                 </label>
                 <textarea
                   rows={4}
                   className="w-full bg-transparent border-b border-brand-white/30 py-3 focus:border-brand-red outline-none transition-colors resize-none text-brand-white placeholder:text-brand-white/30"
-                  placeholder="Tell us about your matter…"
+                  placeholder={t('messagePlaceholder')}
                 />
               </div>
               <button
                 type="submit"
                 className="w-full bg-brand-red text-brand-white py-4 text-sm uppercase tracking-wider hover:bg-brand-white hover:text-brand-black transition-colors"
               >
-                Submit Enquiry
+                {t('submit')}
               </button>
             </form>
           </div>

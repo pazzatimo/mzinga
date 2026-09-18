@@ -8,14 +8,15 @@ export default defineType({
     defineField({
       name: 'title',
       title: 'Service Title',
-      type: 'string',
-      validation: Rule => Rule.required()
+      type: 'internationalizedArrayString',
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'title' }
+      options: { source: 'title.0.value' },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'category',
@@ -30,33 +31,39 @@ export default defineType({
           { title: 'Regulatory Compliance', value: 'regulatory' },
           { title: 'Mining & Natural Resources', value: 'mining' },
           { title: 'NGO & Non-Profit Services', value: 'ngo' },
-          { title: 'Legal Drafting & Advisory', value: 'legal-drafting' }
-        ]
-      }
+          { title: 'Legal Drafting & Advisory', value: 'legal-drafting' },
+        ],
+      },
     }),
     defineField({
       name: 'shortDescription',
       title: 'Short Description',
-      type: 'text',
-      rows: 2
-    }),
-    defineField({
-      name: 'fullDescription',
-      title: 'Full Description',
-      type: 'array',
-      of: [{ type: 'block' }]
+      type: 'internationalizedArrayText',
     }),
     defineField({
       name: 'bulletPoints',
       title: 'Key Points',
-      type: 'array',
-      of: [{ type: 'string' }]
+      type: 'internationalizedArrayString',
+      description: 'Add key points per language.',
     }),
     defineField({
       name: 'icon',
       title: 'Icon Name',
       type: 'string',
-      description: 'Lucide icon name (e.g., "Scale", "FileText", "Building")'
-    })
-  ]
+      description: 'Lucide icon name (e.g., "Scale", "FileText", "Building")',
+    }),
+    defineField({
+      name: 'order',
+      title: 'Display Order',
+      type: 'number',
+      initialValue: 10,
+    }),
+  ],
+  orderings: [
+    {
+      title: 'Display Order',
+      name: 'order',
+      by: [{ field: 'order', direction: 'asc' }],
+    },
+  ],
 })

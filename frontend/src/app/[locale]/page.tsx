@@ -4,12 +4,20 @@ import { urlFor } from '@/sanity/lib/image'
 import Link from 'next/link'
 import Image from 'next/image'
 import * as Icons from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 
 export const revalidate = 60
 
-export default async function HomePage() {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const t = await getTranslations('sections')
+
   const [data, clients] = await Promise.all([
-    client.fetch(homepageQuery),
+    client.fetch(homepageQuery, { locale }),
     client.fetch(clientsQuery),
   ])
 
@@ -17,7 +25,7 @@ export default async function HomePage() {
     return (
       <div className="pt-32 pb-24 px-6 text-center">
         <p className="text-brand-black/60 text-lg">
-          Content loading… Add a Homepage document in the Studio.
+          Content loading… Add a Homepage document in the Studio for this language.
         </p>
       </div>
     )
@@ -44,9 +52,6 @@ export default async function HomePage() {
 
         <div className="relative w-full max-w-7xl mx-auto px-6 pb-20 lg:pb-28 pt-40">
           <div className="max-w-3xl">
-            <p className="text-brand-red uppercase tracking-[0.35em] text-xs mb-6">
-              Legal · Tax · Advisory
-            </p>
             <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-[1.15] mb-6 text-brand-white">
               {data.heroHeadline}
             </h1>
@@ -58,13 +63,13 @@ export default async function HomePage() {
                 href="/contact"
                 className="bg-brand-red text-brand-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-brand-white hover:text-brand-black transition-colors"
               >
-                {data.heroCtaText || 'Book a Consultation'}
+                {data.heroCtaText || t('getStarted')}
               </Link>
               <Link
                 href="/services"
                 className="border border-brand-white/60 text-brand-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-brand-white hover:text-brand-black transition-colors"
               >
-                Explore Services
+                {t('ourServices')}
               </Link>
             </div>
           </div>
@@ -95,10 +100,10 @@ export default async function HomePage() {
       <section className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <p className="text-brand-red uppercase tracking-[0.3em] text-xs mb-4">
-            Why Choose Us
+            {t('whyChooseUs')}
           </p>
           <h2 className="font-serif text-4xl md:text-5xl mb-16 max-w-2xl text-brand-black">
-            Built on expertise. Driven by integrity.
+            {t('whyChooseUsHeadline')}
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-brand-black/10">
             {data.features?.map(
@@ -124,10 +129,10 @@ export default async function HomePage() {
       <section className="py-24 px-6 bg-brand-black text-brand-white">
         <div className="max-w-7xl mx-auto">
           <p className="text-brand-red uppercase tracking-[0.3em] text-xs mb-4">
-            Our Core Services
+            {t('ourServices')}
           </p>
           <h2 className="font-serif text-4xl md:text-5xl mb-16 max-w-2xl text-brand-white">
-            Comprehensive solutions across legal and tax disciplines.
+            {t('ourServicesHeadline')}
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {data.services?.map(
@@ -169,10 +174,10 @@ export default async function HomePage() {
         <section className="py-24 px-6">
           <div className="max-w-4xl mx-auto">
             <p className="text-brand-red uppercase tracking-[0.3em] text-xs mb-4">
-              FAQ
+              {t('faq')}
             </p>
             <h2 className="font-serif text-4xl md:text-5xl mb-12 text-brand-black">
-              Common questions
+              {t('faqHeadline')}
             </h2>
             <div className="divide-y divide-brand-black/10">
               {data.faq.map(
@@ -197,16 +202,16 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Clients — logo grid */}
+      {/* Clients */}
       {clients?.length > 0 && (
         <section className="py-20 px-6 border-t border-brand-black/10">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-14">
               <p className="text-brand-red uppercase tracking-[0.3em] text-xs mb-4">
-                Our Clients
+                {t('clients')}
               </p>
               <h2 className="font-serif text-3xl md:text-4xl text-brand-black max-w-2xl mx-auto">
-                Trusted by organisations across Tanzania and beyond.
+                {t('clientsHeadline')}
               </h2>
             </div>
 
@@ -242,7 +247,10 @@ export default async function HomePage() {
                       {logoImage}
                     </a>
                   ) : (
-                    <div key={c._id} className="opacity-70 hover:opacity-100 transition-opacity duration-300">
+                    <div
+                      key={c._id}
+                      className="opacity-70 hover:opacity-100 transition-opacity duration-300"
+                    >
                       {logoImage}
                     </div>
                   )
@@ -253,27 +261,26 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* CTA — text left, image right */}
+      {/* CTA */}
       <section className="bg-brand-red overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 items-stretch">
             <div className="lg:col-span-7 px-6 lg:px-12 py-20 lg:py-28 flex flex-col justify-center">
               <p className="text-brand-white/70 uppercase tracking-[0.3em] text-xs mb-6">
-                Get Started
+                {t('getStarted')}
               </p>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-6 text-brand-white leading-[1.1]">
-                Ready to protect your interests?
+                {t('ctaHeadline')}
               </h2>
               <p className="text-brand-white/80 mb-10 text-lg max-w-lg leading-relaxed">
-                Reach out today for a consultation. We assess your situation and
-                propose a tailored engagement plan.
+                {t('ctaBody')}
               </p>
               <div>
                 <Link
                   href="/contact"
                   className="inline-block bg-brand-white text-brand-black px-10 py-4 text-sm uppercase tracking-wider hover:bg-brand-black hover:text-brand-white transition-colors"
                 >
-                  Contact Us
+                  {t('contactUs')}
                 </Link>
               </div>
             </div>

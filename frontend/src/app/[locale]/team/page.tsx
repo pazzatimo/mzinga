@@ -3,35 +3,37 @@ import { teamQuery } from '@/sanity/lib/queries'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
 import { Mail, Phone } from 'lucide-react'
+import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 
 export const revalidate = 60
 
-export default async function TeamPage() {
-  const team = await client.fetch(teamQuery)
+export default async function TeamPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const t = await getTranslations('team')
+  const team = await client.fetch(teamQuery, { locale })
 
   return (
     <div className="pt-32 pb-24 px-6">
       <div className="max-w-7xl mx-auto">
         <p className="text-brand-red uppercase tracking-[0.3em] text-xs mb-4">
-          Our Team
+          {t('eyebrow')}
         </p>
         <h1 className="font-serif text-5xl md:text-6xl mb-6 max-w-3xl text-brand-black">
-          Experienced professionals. Committed to your success.
+          {t('headline')}
         </h1>
         <p className="text-brand-black/60 max-w-2xl mb-16 text-lg">
-          Our consultants bring together deep technical expertise in Tanzanian and
-          international legal and tax frameworks, along with a shared commitment to
-          integrity and client service.
+          {t('intro')}
         </p>
 
         {team.length === 0 ? (
           <div className="border border-brand-black/10 p-16 text-center">
-            <p className="text-brand-black/60 text-lg">
-              Team profiles coming soon.
-            </p>
-            <p className="text-brand-black/40 text-sm mt-3">
-              Add team members in the Studio to display them here.
-            </p>
+            <p className="text-brand-black/60 text-lg">{t('empty')}</p>
+            <p className="text-brand-black/40 text-sm mt-3">{t('emptyHint')}</p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -47,7 +49,6 @@ export default async function TeamPage() {
                 phone?: string
               }) => (
                 <article key={member._id} className="group">
-                  {/* Photo */}
                   <div className="aspect-[4/5] bg-brand-black/5 mb-6 overflow-hidden relative">
                     {member.photo ? (
                       <Image
@@ -66,7 +67,6 @@ export default async function TeamPage() {
                     )}
                   </div>
 
-                  {/* Name & Role */}
                   <h2 className="font-serif text-2xl mb-1 text-brand-black">
                     {member.name}
                   </h2>
@@ -74,7 +74,6 @@ export default async function TeamPage() {
                     {member.role}
                   </p>
 
-                  {/* Qualifications */}
                   {member.qualifications && member.qualifications.length > 0 && (
                     <ul className="flex flex-wrap gap-2 mb-4">
                       {member.qualifications.map((q, i) => (
@@ -88,14 +87,12 @@ export default async function TeamPage() {
                     </ul>
                   )}
 
-                  {/* Bio */}
                   {member.bio && (
                     <p className="text-brand-black/60 leading-relaxed text-sm mb-4">
                       {member.bio}
                     </p>
                   )}
 
-                  {/* Contact */}
                   <div className="space-y-2 text-sm">
                     {member.email && (
                       <a
@@ -122,21 +119,19 @@ export default async function TeamPage() {
           </div>
         )}
 
-        {/* CTA */}
         <div className="mt-24 pt-16 border-t border-brand-black/10 text-center">
           <h2 className="font-serif text-3xl md:text-4xl mb-6 text-brand-black">
-            Want to work with us?
+            {t('ctaHeadline')}
           </h2>
           <p className="text-brand-black/60 max-w-2xl mx-auto mb-8">
-            Whether you need a consultation or are interested in joining our team,
-            we'd like to hear from you.
+            {t('ctaBody')}
           </p>
-          <a
+          <Link
             href="/contact"
             className="inline-block bg-brand-red text-brand-white px-10 py-4 text-sm uppercase tracking-wider hover:bg-brand-black transition-colors"
           >
-            Get in Touch
-          </a>
+            {t('ctaButton')}
+          </Link>
         </div>
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
+import { documentInternationalization } from '@sanity/document-internationalization'
+import { internationalizedArray } from 'sanity-plugin-internationalized-array'
 import { schemaTypes } from './schemaTypes'
 
 export default defineConfig({
@@ -59,6 +61,28 @@ export default defineConfig({
             S.documentTypeListItem('faq').title('FAQs'),
           ]),
     }),
+
+    documentInternationalization({
+      supportedLanguages: [
+        { id: 'en', title: 'English' },
+        { id: 'sw', title: 'Kiswahili' },
+      ],
+      schemaTypes: [
+        'homepage',
+        'servicesPage',
+        'aboutPage',
+        'siteSettings',
+      ],
+    }),
+
+    internationalizedArray({
+      languages: [
+        { id: 'en', title: 'English' },
+        { id: 'sw', title: 'Kiswahili' },
+      ],
+      fieldTypes: ['string', 'text'],
+    }),
+
     visionTool(),
   ],
 

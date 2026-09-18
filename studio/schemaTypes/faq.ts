@@ -8,21 +8,20 @@ export default defineType({
     defineField({
       name: 'question',
       title: 'Question',
-      type: 'string',
+      type: 'internationalizedArrayString',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'answer',
       title: 'Answer',
-      type: 'text',
-      rows: 4,
+      type: 'internationalizedArrayText',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'order',
       title: 'Display Order',
       type: 'number',
-      description: 'Lower numbers appear first. Use 10, 20, 30… to leave room for inserting items later.',
+      description: 'Lower numbers appear first.',
       initialValue: 10,
     }),
     defineField({
@@ -30,7 +29,6 @@ export default defineType({
       title: 'Show on Homepage',
       type: 'boolean',
       initialValue: true,
-      description: 'Toggle off to hide from the homepage without deleting the FAQ.',
     }),
   ],
   orderings: [
@@ -42,8 +40,8 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'question',
-      subtitle: 'answer',
+      title: 'question.0.value',
+      subtitle: 'answer.0.value',
     },
   },
 })

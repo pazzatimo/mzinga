@@ -2,20 +2,27 @@ import { client } from '@/sanity/lib/client'
 import { aboutPageQuery } from '@/sanity/lib/queries'
 import { urlFor } from '@/sanity/lib/image'
 import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 
 export const revalidate = 60
 
-export default async function AboutPage() {
-  const data = await client.fetch(aboutPageQuery)
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const t = await getTranslations('about')
+  const data = await client.fetch(aboutPageQuery, { locale })
 
   return (
     <div className="pt-32 pb-24 px-6">
       <div className="max-w-4xl mx-auto">
         <p className="text-brand-red uppercase tracking-[0.3em] text-xs mb-4">
-          About Us
+          {t('eyebrow')}
         </p>
         <h1 className="font-serif text-5xl md:text-6xl mb-16 max-w-3xl text-brand-black">
-          Legal and tax consultancy, reimagined for a globalised Tanzania.
+          {t('headline')}
         </h1>
 
         <div className="max-w-none">
@@ -27,7 +34,7 @@ export default async function AboutPage() {
           <div className="grid md:grid-cols-2 gap-12 my-20">
             <div className="border-l-2 border-brand-red pl-8">
               <h2 className="font-serif text-2xl mb-4 text-brand-black">
-                Our Mission
+                {t('mission')}
               </h2>
               <p className="text-brand-black/70 leading-relaxed">
                 {data?.mission ||
@@ -36,7 +43,7 @@ export default async function AboutPage() {
             </div>
             <div className="border-l-2 border-brand-red pl-8">
               <h2 className="font-serif text-2xl mb-4 text-brand-black">
-                Our Vision
+                {t('vision')}
               </h2>
               <p className="text-brand-black/70 leading-relaxed">
                 {data?.vision ||
@@ -45,10 +52,9 @@ export default async function AboutPage() {
             </div>
           </div>
 
-          {/* Our Values — single designed image */}
           <div className="mt-20">
             <h2 className="font-serif text-3xl mb-8 text-brand-black">
-              Our Values
+              {t('values')}
             </h2>
 
             {data?.valuesImage?.asset ? (

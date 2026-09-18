@@ -3,6 +3,7 @@ import { serviceBySlugQuery } from '@/sanity/lib/queries'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import * as Icons from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 
 export const revalidate = 60
 
@@ -16,10 +17,11 @@ export async function generateStaticParams() {
 export default async function ServicePage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ locale: string; slug: string }>
 }) {
-  const { slug } = await params
-  const service = await client.fetch(serviceBySlugQuery, { slug })
+  const { locale, slug } = await params
+  const t = await getTranslations('services')
+  const service = await client.fetch(serviceBySlugQuery, { slug, locale })
 
   if (!service) notFound()
 
@@ -32,7 +34,7 @@ export default async function ServicePage({
           href="/services"
           className="text-sm text-brand-black/50 hover:text-brand-red mb-8 inline-block transition-colors"
         >
-          ← All Services
+          ← {t('allServices')}
         </Link>
 
         <div className="flex items-center gap-4 mb-8">
@@ -52,7 +54,7 @@ export default async function ServicePage({
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <div>
             <h2 className="font-serif text-2xl mb-6 text-brand-black">
-              What we deliver
+              {t('whatWeDeliver')}
             </h2>
             <ul className="space-y-4">
               {service.bulletPoints?.map((bp: string, i: number) => (
@@ -70,7 +72,7 @@ export default async function ServicePage({
             href="/contact"
             className="inline-block bg-brand-red text-brand-white px-10 py-4 text-sm uppercase tracking-wider hover:bg-brand-black transition-colors"
           >
-            Discuss this service
+            {t('discussService')}
           </Link>
         </div>
       </div>

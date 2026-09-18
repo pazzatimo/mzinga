@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "team": "Our Team",
+    "contact": "Contact",
+    "bookConsultation": "Book Consultation"
+  },
+  "hero": {
+    "eyebrow": "Legal · Tax · Advisory",
+    "ctaDefault": "Book a Consultation",
+    "exploreServices": "Explore Services"
+  },
+  "sections": {
+    "whyChooseUs": "Why Choose Us",
+    "whyChooseUsHeadline": "Built on expertise. Driven by integrity.",
+    "ourServices": "Our Core Services",
+    "ourServicesHeadline": "Comprehensive solutions across legal and tax disciplines.",
+    "faq": "FAQ",
+    "faqHeadline": "Common questions",
+    "clients": "Our Clients",
+    "clientsHeadline": "Trusted by organisations across Tanzania and beyond.",
+    "getStarted": "Get Started",
+    "ctaHeadline": "Ready to protect your interests?",
+    "ctaBody": "Reach out today for a consultation. We assess your situation and propose a tailored engagement plan.",
+    "contactUs": "Contact Us"
+  },
+  "footer": {
+    "tagline": "Legal, tax, finance and management consultancy serving Tanzania and the world.",
+    "navigate": "Navigate",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  },
+  "contact": {
+    "eyebrow": "Contact Us",
+    "headline": "Start a conversation.",
+    "officeAddress": "Office Address",
+    "mailingAddress": "Mailing Address",
+    "phone": "Phone",
+    "email": "Email",
+    "workingHours": "Working Hours",
+    "followUs": "Follow Us",
+    "sendMessage": "Send us a message",
+    "fullName": "Full Name",
+    "yourName": "Your name",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell us about your matter…",
+    "submit": "Submit Enquiry",
+    "sending": "Sending...",
+    "thankYou": "Thank you!",
+    "thankYouBody": "Your message has been sent. We will get back to you shortly."
+  },
+  "team": {
+    "eyebrow": "Our Team",
+    "headline": "Experienced professionals. Committed to your success.",
+    "intro": "Our consultants bring together deep technical expertise in Tanzanian and international legal and tax frameworks, along with a shared commitment to integrity and client service.",
+    "empty": "Team profiles coming soon.",
+    "emptyHint": "Add team members in the Studio to display them here.",
+    "ctaHeadline": "Want to work with us?",
+    "ctaBody": "Whether you need a consultation or are interested in joining our team, we'd like to hear from you.",
+    "ctaButton": "Get in Touch"
+  },
+  "about": {
+    "eyebrow": "About Us",
+    "headline": "Legal and tax consultancy, reimagined for a globalised Tanzania.",
+    "mission": "Our Mission",
+    "vision": "Our Vision",
+    "values": "Our Values"
+  },
+  "services": {
+    "eyebrow": "Our Services",
+    "headline": "Expertise across every dimension of legal and tax practice.",
+    "subheadline": "From corporate structuring to tax dispute resolution, our team delivers practical, jurisdiction-aware advice tailored to your needs.",
+    "allServices": "All Services",
+    "whatWeDeliver": "What we deliver",
+    "discussService": "Discuss this service",
+    "empty": "Services coming soon."
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "sw": "Kiswahili"
+  },
+  "common": {
+    "loading": "Content loading…",
+    "notFound": "Page not found"
+  }
+}

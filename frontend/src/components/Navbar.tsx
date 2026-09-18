@@ -4,15 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { urlFor } from '@/sanity/lib/image'
-
-const links = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About Us' },
-  { href: '/services', label: 'Services' },
-  { href: '/team', label: 'Our Team' },
-  { href: '/contact', label: 'Contact' },
-]
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 type LogoType = {
   asset: { _ref: string }
@@ -26,6 +20,15 @@ type NavbarProps = {
 
 export function Navbar({ logo, companyName }: NavbarProps) {
   const [open, setOpen] = useState(false)
+  const t = useTranslations('nav')
+
+  const links = [
+    { href: '/', label: t('home') },
+    { href: '/about', label: t('about') },
+    { href: '/services', label: t('services') },
+    { href: '/team', label: t('team') },
+    { href: '/contact', label: t('contact') },
+  ]
 
   return (
     <header className="fixed top-0 w-full z-50 bg-brand-white/95 backdrop-blur-sm border-b border-brand-black/10">
@@ -51,33 +54,40 @@ export function Navbar({ logo, companyName }: NavbarProps) {
           )}
         </Link>
 
-        <ul className="hidden md:flex items-center gap-8 text-sm tracking-wide uppercase">
-          {links.map((l) => (
-            <li key={l.href}>
-              <Link
-                href={l.href}
-                className="text-brand-black hover:text-brand-red transition-colors"
-              >
-                {l.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="hidden md:flex items-center gap-8">
+          <ul className="flex items-center gap-8 text-sm tracking-wide uppercase">
+            {links.map((l) => (
+              <li key={l.href}>
+                <Link
+                  href={l.href}
+                  className="text-brand-black hover:text-brand-red transition-colors"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
 
-        <Link
-          href="/contact"
-          className="hidden md:inline-block bg-brand-black text-brand-white px-6 py-2.5 text-sm uppercase tracking-wider hover:bg-brand-red hover:text-brand-white transition-colors"
-        >
-          Book Consultation
-        </Link>
+          <LanguageSwitcher />
 
-        <button
-          className="md:hidden text-brand-black"
-          onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <Link
+            href="/contact"
+            className="bg-brand-black text-brand-white px-6 py-2.5 text-sm uppercase tracking-wider hover:bg-brand-red hover:text-brand-white transition-colors"
+          >
+            {t('bookConsultation')}
+          </Link>
+        </div>
+
+        <div className="flex md:hidden items-center gap-4">
+          <LanguageSwitcher />
+          <button
+            className="text-brand-black"
+            onClick={() => setOpen(!open)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
       {open && (
@@ -97,7 +107,7 @@ export function Navbar({ logo, companyName }: NavbarProps) {
             className="block bg-brand-red text-brand-white px-6 py-3 text-sm uppercase tracking-wider text-center"
             onClick={() => setOpen(false)}
           >
-            Book Consultation
+            {t('bookConsultation')}
           </Link>
         </div>
       )}
